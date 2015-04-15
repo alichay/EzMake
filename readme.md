@@ -1,4 +1,4 @@
-== EzMake
+# EzMake
 
 EzMake is a build system made for the lazy developer.
 
