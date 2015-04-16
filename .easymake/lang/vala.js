@@ -32,14 +32,13 @@ module.exports = function(flags, outName, entryPoint) {
 	var walker = walk.walk("./.ezmake_files/output", {followLinks: false});
 
 	walker.on('file', function(root, stat, next) {
-		if(stat.name.toLowerCase().endsWith("vala")) {
+		if(stat.name.toLowerCase().endsWith(["vala", "c"])) {
 			sources.push(root.replace("./", "") + '/' + stat.name);
 		}
 		next();
 	});
 
 	walker.on('end', function(){
-		//object = ".ezmake_files/output/"+sources[i].name.rplifend(["c", "i", "ii", "m", "mi", "cc", "cp", "cxx", "cpp", "CPP", "c++", "C"], "o").replace("src/", "");
 		
 		console.log("Compiling with '"+("valac "+flags).trim()+"'.");
 		shell("valac " + flags + " \""+sources.join('" "')+"\" -o \"./bin/"+outName+"\"");
