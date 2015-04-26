@@ -1,1 +1,1 @@
-((require("./.easymake/ez.js"))("Cpp"))("", "hello-world");
+((require("./.easymake/ez.js"))("C"))("", "hello-world");

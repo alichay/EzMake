@@ -87,6 +87,7 @@ module.exports = function(flags, outName) {
 		shell("cp -r src/* .ezmake_files/src/");
 
 		objects = "";
+		var hasCpp = false;
 
 		for(i=0;i<cpp.length;i++) {
 			object = ".ezmake_files/output/"+cpp[i].name.rplifend(["c", "i", "ii", "m", "mi", "cc", "cp", "cxx", "cpp", "CPP", "c++", "C"], "o").replace("src/", "");
@@ -96,6 +97,7 @@ module.exports = function(flags, outName) {
 				shell("mkdir -p \""+object.substr(0,object.lastIndexOf("/"))+"\"");
 				compiler = "g++ -std=c++11";
 				if(cpp[i].name.endsWith(["c", "i"])) compiler = "gcc";
+				else hasCpp = true;
 
 				console.log("compiling "+cpp[i].name+" with '"+compiler+" "+flags+"'");
 
@@ -103,6 +105,6 @@ module.exports = function(flags, outName) {
 			}
 		}
 
-		shell("g++ " + flags + " -o \"bin/"+outName+"\" "+objects);
+		shell("g"+(hasCpp?"++":"cc")+" " + flags + " -o \"bin/"+outName+"\" "+objects);
 	});
 };
